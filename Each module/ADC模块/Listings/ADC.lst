@@ -1,0 +1,50 @@
+C51 COMPILER V9.60.0.0   ADC                                                               04/20/2022 21:57:54 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE ADC
+OBJECT MODULE PLACED IN .\Objects\ADC.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ADC.C OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\ADC.l
+                    -st) TABS(2) OBJECT(.\Objects\ADC.obj)
+
+line level    source
+
+   1          #include"twj.h"
+   2          uchar temp[6]="";
+   3          void initialize()
+   4          {
+   5   1          P1ASF=0X04;
+   6   1          ADC_RES=0;
+   7   1          ADC_CONTR=0X80;
+   8   1          delay(1400);
+   9   1      }
+  10          void adc_zhuanhuan()
+  11          {
+  12   1          ADC_RES=0;
+  13   1          ADC_CONTR=0X82;
+  14   1          delay(1400);
+  15   1          ADC_CONTR=0X8A;
+  16   1          while(!(ADC_CONTR&0x10));
+  17   1          ADC_CONTR=0x00;
+  18   1      }
+  19          void xianshi()
+  20          {
+  21   1          uint num=ADC_RES*196;
+  22   1          temp[0]=(uchar)(num/10000+'0');
+  23   1          temp[1]='\.';
+  24   1          temp[2]=(uchar)(num/1000%10+'0');
+  25   1          temp[3]=(uchar)(num/100%10+'0');
+  26   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    116    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      6    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
