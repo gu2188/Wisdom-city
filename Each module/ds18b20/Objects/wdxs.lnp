@@ -1,0 +1,7 @@
+".\Objects\STARTUP.obj",
+".\Objects\delay.obj",
+".\Objects\ds18b20.obj",
+".\Objects\lcd.obj",
+".\Objects\ledlsd.obj" 
+TO ".\Objects\wdxs" 
+PRINT(".\Listings\wdxs.m51")

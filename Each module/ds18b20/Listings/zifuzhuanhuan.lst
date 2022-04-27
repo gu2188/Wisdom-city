@@ -1,0 +1,57 @@
+C51 COMPILER V9.60.0.0   ZIFUZHUANHUAN                                                     11/01/2021 10:23:12 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE ZIFUZHUANHUAN
+OBJECT MODULE PLACED IN .\Objects\zifuzhuanhuan.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE zifuzhuanhuan.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listing
+                    -s\zifuzhuanhuan.lst) TABS(2) OBJECT(.\Objects\zifuzhuanhuan.obj)
+
+line level    source
+
+   1          #include"twj.h"
+   2          int i,j;
+   3          char* Int2String(int num,char *str)
+   4          {
+   5   1        i=0;
+   6   1        if(num<0)
+   7   1        {
+   8   2          num = -num;
+   9   2          str[i++] = '-';
+  10   2        }
+  11   1        do
+  12   1        {
+  13   2          str[i++] = num%10+48;
+  14   2          num /= 10;
+  15   2        }while(num);
+  16   1      
+  17   1        str[i] = '\0';
+  18   1      
+  19   1        j=0;
+  20   1        if(str[0]=='-')
+  21   1        {
+  22   2          j=1;
+  23   2          ++i;
+  24   2        }
+  25   1        for(;j<i/2;j++)
+  26   1        {
+  27   2          str[j] = str[j] + str[i-1-j];
+  28   2          str[i-1-j] = str[j] - str[i-1-j];
+  29   2          str[j] = str[j] - str[i-1-j];
+  30   2        }
+  31   1      
+  32   1        return str;
+  33   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    352    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4       5
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

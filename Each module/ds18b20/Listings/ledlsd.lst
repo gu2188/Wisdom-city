@@ -1,0 +1,125 @@
+C51 COMPILER V9.60.0.0   LEDLSD                                                            12/08/2021 16:30:15 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE LEDLSD
+OBJECT MODULE PLACED IN .\Objects\ledlsd.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE ledlsd.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\ledls
+                    -d.lst) TABS(2) OBJECT(.\Objects\ledlsd.obj)
+
+line level    source
+
+   1          #include"twj.h"
+   2          uchar str[]="temp:";
+   3          uchar str1[]="temp to hot";
+   4          uchar str2[]="01200111 45";
+   5          uint code cw[]={0x09,0x01,0x03,0x02,0x06,0x04,0x0c,0x08};
+   6          int main(void)
+   7          {
+   8   1          uchar g;
+   9   1          RED=0;
+  10   1          BLUE=1;
+  11   1          P0=0xff;
+  12   1          delay(10);
+  13   1          lcd_csh();
+  14   1          delay(10);
+  15   1          lcd_w_cmd(0x80);
+  16   1          delay(10);
+  17   1          for ( g = 0;str[g] !='\0'; g++)
+  18   1          {
+  19   2              lcd_w_dat(str[g]);
+  20   2          }
+  21   1          lcd_w_cmd(0x89);
+  22   1          lcd_w_dat(0xdf);
+  23   1          lcd_w_dat('C');
+  24   1          lcd_w_cmd(0xc0);
+  25   1          delay(10);
+  26   1          for ( g = 0;str2[g] !='\0'; g++)
+  27   1          {
+  28   2              lcd_w_dat(str2[g]);
+  29   2          }
+  30   1          while (1)
+  31   1          {
+  32   2          lcd_w_cmd(0x85);
+  33   2          ds18b20_readtemp();
+  34   2          Temperature_Convert();
+  35   2          for ( g = 0;g<4; g++)
+  36   2          {
+  37   3              lcd_w_dat(temp[g]);
+  38   3              delay(100);
+  39   3          }
+  40   2          if(temperature>280&&temperature!=850)
+  41   2          { 
+  42   3                  P0=0xff;
+  43   3                  BLUE=0;
+  44   3                  delay(10);
+  45   3                  lcd_csh();
+  46   3                  delay(10);
+  47   3                  lcd_w_cmd(0x80);
+  48   3                  delay(10);
+  49   3                  for ( g = 0;str1[g] !='\0'; g++)
+  50   3                  {
+  51   4                      lcd_w_dat(str1[g]);
+  52   4                  }
+  53   3                  while(1)
+  54   3                  {
+C51 COMPILER V9.60.0.0   LEDLSD                                                            12/08/2021 16:30:15 PAGE 2   
+
+  55   4                      ds18b20_readtemp();
+  56   4                      SPACKER=1;
+  57   4                      RED=1;
+  58   4                      for(g=0;g<8;g++)
+  59   4                      {
+  60   5                          P3=cw[g];
+  61   5                          delay(650);
+  62   5                      }
+  63   4                      SPACKER=0;
+  64   4                      RED=0;
+  65   4                      for(g=0;g<8;g++)
+  66   4                      {
+  67   5                          P3=cw[g];
+  68   5                          delay(650);
+  69   5                      }
+  70   4                      for(g=0;g<8;g++)
+  71   4                      {
+  72   5                          P3=cw[g];
+  73   5                          delay(650);
+  74   5                      }
+  75   4                      P3=0x00;
+  76   4                      if(temperature<=280)
+  77   4                      {
+  78   5                              RED=0;
+  79   5                              BLUE=1;
+  80   5                              P0=0xff;
+  81   5                              delay(10);
+  82   5                              lcd_csh();
+  83   5                              delay(10);
+  84   5                              lcd_w_cmd(0x80);
+  85   5                              delay(10);
+  86   5                              for ( g = 0;str[g] !='\0'; g++)
+  87   5                              {
+  88   6                                  lcd_w_dat(str[g]);
+  89   6                              }
+  90   5                              lcd_w_cmd(0x89);
+  91   5                              lcd_w_dat(0xdf);
+  92   5                              lcd_w_dat('C');
+  93   5                              lcd_w_cmd(0xc0);
+  94   5                              break;
+  95   5                      }
+  96   4                  }
+  97   3          }
+  98   2          }
+  99   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    461    ----
+   CONSTANT SIZE    =     16    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     30       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
